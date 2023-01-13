@@ -1,0 +1,120 @@
+# 모든 설정은 일단 기본값으로 설정해두었습니다. 자세한 사항은 recbole 페이지를 참고
+
+
+# [Environment Settings]
+
+gpu_id: 0
+worker: 0
+seed: 42
+state: 'INFO'
+encoding: 'utf-8'
+reproducibility: True
+data_path: 'dataset/'
+checkpoint_dir: 'saved/'
+#show_progress: True
+#save_dataset: False
+#dataset_save_path: null
+#save_dataloaders: False
+#dataloaders_save_path: null
+#log_wandb: False
+#wandb_project: 'recbole'
+#shuffle: True
+
+
+# [Data settings]
+
+# Atomic File Format
+#field_separator: "\t"
+#seq_separator: " "
+
+# Basic Information
+# Common Features
+USER_ID_FIELD: user_id
+ITEM_ID_FIELD: product_id
+#RATING_FIELD: rating
+#TIME_FIELD: timestamp
+#seq_len: null
+# Label for Point-wise DataLoader
+# Negative Sampling Prefix for Pair-wise DataLoader
+# Sequential Model Needed
+# Knowledge-based Model Needed
+
+# Selectively Loading
+load_col:
+  inter: [user_id, product_id]
+#unload_col:  null
+#unused_col: null
+#additional_feat_suffix: null
+#numerical_features: null
+
+# Filtering
+# Remove duplicated user-item interactions
+#rm_dup_inter: null
+# Filter by value
+#val_interval: null
+# Remove interaction by user or item
+filter_inter_by_user_or_item: True
+# Filter by number of interactions
+user_inter_num_interval: "[0,inf)"
+item_inter_num_interval: "[0,inf)"
+
+# Preprocessing
+#alias_of_user_id: null
+#alias_of_item_id: null
+#alias_of_entity_id: null
+#alias_of_relation_id: null
+#preload_weight: null
+#normalize_field: null
+#normalize_all: null
+#discretization:
+#  method: ED
+
+# Benchmark file
+#benchmark_filename: None
+
+
+# [Model Settings] - CDAE
+
+loss_type: BCE
+hid_activation: relu
+out_activation: sigmoid
+corruption_ratio: 0.5
+embedding_size: 64
+reg_weight_1: 0.
+reg_weight_2: 0.01
+
+
+# [Training Settings]
+
+epochs: 300
+train_batch_size: 2048
+learner: 'adam'
+learning_rate: 0.001
+train_neg_sample_args:
+  distribution: uniform
+  sample_num: 1
+  dynamic: False
+  candidate_num: 0
+eval_step: 1
+stopping_step: 10
+clip_grad_norm: null
+loss_decimal_place: 4
+weight_decay: 0.0
+require_pow: False
+enable_amp: False
+enable_scaler: False
+
+
+# [Evaluation Settings]
+
+eval_args:
+  group_by: user
+  order: RO
+  split: {'RS': [0.8,0.1,0.1]}
+  mode: full
+repeatable: False
+metrics: ['Recall', 'MRR', 'NDCG', 'Hit', 'Precision']
+topk: [10]
+valid_metric: 'MRR@10'
+eval_batch_size: 4096
+metric_decimal_place: 4

@@ -1,0 +1,22 @@
+# Saved models
+/saved*
+*.pth
+
+.vscode/
+.idea/
+*.pyc
+*.log
+log_tensorboard/*
+saved/
+*.lprof
+*.egg-info/
+docs/build/
+wandb/*
+/ray_log*
+
+# by KCH
+log/
+log_tensorboard/
+output_data/
+steam-data/
+dataset/
